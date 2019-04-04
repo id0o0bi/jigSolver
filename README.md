@@ -14,3 +14,11 @@ This program solve jigsaw puzzles in the following steps:
 # 3. match the pieces 
 
 > todo
+
+
+PS: VS Code Settings
+```
+"python.linting.pylintArgs": [
+    "extension-pkg-whitelist=cv2"
+]
+```
