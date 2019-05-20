@@ -19,6 +19,6 @@ This program solve jigsaw puzzles in the following steps:
 PS: VS Code Settings
 ```
 "python.linting.pylintArgs": [
-    "extension-pkg-whitelist=cv2"
+    "--extension-pkg-whitelist=cv2"
 ]
 ```
