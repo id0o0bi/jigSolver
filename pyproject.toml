@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "jigsolver"
+version = "0.1.0"
+description = "a small program help solving jigsaw puzzles"
+authors = ["id0o0bi<id0o0bi.org@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "3.5.3"
+opencv-python = "^4.1"
+pylint = "^2.3"
+matplotlib = "^3.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

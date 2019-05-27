@@ -3,9 +3,8 @@ Detect Edges in an Image and extract Content
 '''
 # pylint: disable=invalid-name
 import cv2
-import numpy as np
-import matplotlib as mpl
-mpl.use('TkAgg')
+# import numpy as np
+# import matplotlib as mpl
 from matplotlib import pyplot as plt
 from edgeDetector import find_edges
 
