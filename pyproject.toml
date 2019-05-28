@@ -2,7 +2,7 @@
 name = "jigsolver"
 version = "0.1.0"
 description = "a small program help solving jigsaw puzzles"
-authors = ["id0o0bi<id0o0bi.org@gmail.com>"]
+authors = ["id0o0bi <id0o0bi.org@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "3.5.3"
