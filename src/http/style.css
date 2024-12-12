@@ -1,0 +1,88 @@
+html, body {
+    all: unset;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#head { height: 120px; border-bottom: 1px solid gainsboro; }
+#head .prev { float: left; }
+#head .next { float: right; }
+#head .prev, #head .next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 100%;
+}
+
+#head .prev button, #head .next button {
+    vertical-align: middle;
+    margin: 8px;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    border-width: 0;
+}
+
+#body {
+    position: fixed;
+    top: 121px;
+    bottom: 0;
+}
+
+#corner {
+    height: 100%;
+    width: 100px;
+    border-right: 1px solid gainsboro;
+    float: left;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#corner ul, #corner ul li {
+    all: unset;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    list-style: none;
+}
+
+#corner ul li {
+    display: block;
+    margin: 8px 0 0 8px;
+}
+#corner ul li img {
+    max-width: 80%;
+    opacity: 0.5;
+    filter: invert(100%);
+}
+#corner ul li img:hover {
+    opacity: 1;
+    filter: invert(100%) drop-shadow(1px 1px 8px gainsboro);
+}
+
+#board {
+    /* height: auto; */
+    /* width: auto; */
+    position: fixed;
+    top: 121px;
+    bottom: 0px;
+    left: 101px;
+    right: 0px;
+    overflow: hidden;
+    background-color: ghostwhite;
+    /* padding: 8px; */
+}
+
+#board .toolbar {
+    border-bottom: 1px solid gainsboro;
+    padding: 2px 12px;
+    background-color: linen;
+}
+#board .toolbar button {
+    border: none;
+    padding: 0 8px;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>the JigSolver...</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="fabric.min.js"></script>
+    <script src="puzzle.js"></script>
+</head>
+<body>
+    <div id="head">
+        <div class="prev"><button>Prev</button></div>
+        <div class="candidates"></div>
+        <div class="next"><button>Next</button></div>
+    </div>
+    <div id="body">
+        <div id="corner">
+            <ul class="pieces"></ul>
+        </div>
+        <div id="board">
+            <div class="toolbar">
+                <button>100%</button>
+                <button>Fit</button>
+                <button>-</button>
+                <button>+</button>
+            </div>
+            <div class="container">
+                <canvas id="canvas" width="2000" height="1900"></canvas>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

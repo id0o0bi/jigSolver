@@ -1,3 +1,7 @@
 .vscode
+.venv
+include/
+src/data/
+src/test/
 __pycache__
 poetry.lock
