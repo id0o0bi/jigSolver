@@ -4,6 +4,7 @@ import pathlib
 
 def load_conn():
     conFile = pathlib.Path('src/data/3con/connectivity.json')
+    # conFile = pathlib.Path('src/test/3con/connectivity.json')
     with open(conFile, 'r') as f:
         raw = json.load(f)
         

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>the JigSolver...Board</title>
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="board.css">
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="konva.min.js"></script>
+    <script src="canvas.js"></script>
+    <script src="board.js"></script>
+</head>
+<body>
+    <div id="pick">
+        <div id="matches">
+            <button id="prev" class="button-89">PREV</button>
+            <ul class="list"></ul>
+            <button id="next" class="button-89">NEXT</button>
+        </div>
+        <div id="view">
+            <div id="canvas"></div>
+            <div id="info">
+                <button id="close">×</button>
+                <h2>Piece Info</h2>
+                <hr/>
+                <p><small>id: <span id="match_id"></span></small></p>
+                <p><small>weight: <span id="match_weight"></span></small></p>
+                <p><small>Rotation: <span id="match_rotation"></span></small></p>
+                <button id="confirm" class="button-89">CONFIRM</button>
+                <h2 style="margin-top: 80px;">Edges to Match</h2>
+                <hr/>
+                <ul class="edges"></ul>
+                <!-- <button id="find" class="button-89">FIND MATCH</button> -->
+                <button id="clear" class="button-89">CLEAR</button>
+            </div>
+        </div>
+    </div>
+    <!-- <div id="head"> -->
+    <!--     <button id="preview" class="button-89" type="button">Preview</button> -->
+    <!-- </div> -->
+    <div id="body">
+        <div id="board"></div>
+    </div>
+</body>
+</html>

@@ -10,13 +10,18 @@ opencv-python = "^4.1"
 pylint = "^2.3"
 matplotlib = "^3.0"
 scipy = "1.14.1"
-shapely = "2.0.6"
+shapely = "^2.0"
 
 [tool.poetry.dev-dependencies]
 
 [[tool.poetry.source]]
 name = "mirrors"
-url = "https://mirrors.ustc.edu.cn/pypi/web/simple/"
+url = "http://mirrors.aliyun.com/pypi/simple/"
+priority = "primary"
+
+
+[[tool.poetry.source]]
+name = "PyPI"
 priority = "primary"
 
 [build-system]

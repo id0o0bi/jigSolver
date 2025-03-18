@@ -6,17 +6,27 @@
     <title>the JigSolver...</title>
     <link rel="stylesheet" href="style.css">
     <script src="jquery-3.7.1.min.js"></script>
-    <script src="fabric.min.js"></script>
+    <!-- <script src="fabric.min.js"></script> -->
+    <script src="konva.min.js"></script>
     <script src="puzzle.js"></script>
 </head>
 <body>
     <div id="head">
         <div class="prev"><button>Prev</button></div>
-        <div class="candidates"></div>
+        <div id="matches"><ul></ul></div>
         <div class="next"><button>Next</button></div>
     </div>
     <div id="body">
         <div id="corner">
+            <div id="sides">
+                <p>00-00</p>
+                <div id="buttons">
+                    <button class="side" side="0">A</button>
+                    <button class="side" side="1">B</button>
+                    <button class="side" side="2">C</button>
+                    <button class="side" side="3">D</button>
+                </div>
+            </div>
             <ul class="pieces"></ul>
         </div>
         <div id="board">
@@ -27,7 +37,7 @@
                 <button>+</button>
             </div>
             <div class="container">
-                <canvas id="canvas" width="2000" height="1900"></canvas>
+                <div id="canvas"></div>
             </div>
         </div>
     </div>

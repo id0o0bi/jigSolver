@@ -6,7 +6,7 @@ html, body {
     width: 100%;
 }
 
-#head { height: 120px; border-bottom: 1px solid gainsboro; }
+#head { height: 120px; border-bottom: 1px solid gainsboro; background-color: cadetblue; }
 #head .prev { float: left; }
 #head .next { float: right; }
 #head .prev, #head .next {
@@ -26,6 +26,32 @@ html, body {
     border-width: 0;
 }
 
+#matches {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 60px;
+    right: 60px;
+    height: 120px;
+}
+
+#matches ul {
+    margin: 10px 0 0;
+    overflow: auto;
+    display: block;
+    padding: 0;
+}
+
+#matches ul li {
+    display: inline-block;
+    margin: 0 4px;
+}
+
+#matches ul li img {
+    max-height: 100px;
+    filter: invert(100%);
+}
+
 #body {
     position: fixed;
     top: 121px;
@@ -40,6 +66,27 @@ html, body {
     padding: 0;
     margin: 0;
     overflow: hidden;
+}
+
+#sides {
+    /* padding-left: 3px; */
+    background-color: lightblue;
+    padding-bottom: 4px;
+}
+
+#corner #sides p {
+    line-height: 1.6em;
+    margin: 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+#buttons {
+    display: flex;
+}
+#buttons button {
+    margin: 4px;
+    border: none;
 }
 
 #corner ul, #corner ul li {
@@ -73,7 +120,7 @@ html, body {
     left: 101px;
     right: 0px;
     overflow: hidden;
-    background-color: ghostwhite;
+    background-color: darkslategrey;
     /* padding: 8px; */
 }
 
@@ -81,8 +128,31 @@ html, body {
     border-bottom: 1px solid gainsboro;
     padding: 2px 12px;
     background-color: linen;
+    position: fixed;
+    right: 0;
+    left: 101px;
+    top: 121px;
 }
 #board .toolbar button {
     border: none;
     padding: 0 8px;
+}
+
+#board .container {
+    padding: 10px;
+    margin-top: 30px;
+    position: fixed;
+    top: 120px;
+    left: 101px;
+    right: 0;
+    bottom: 0;
+    overflow: scroll;
+    background-image: radial-gradient(circle, rgb(203 213 225) 1px, rgba(0, 0, 0, 0) 1px);
+    background-size: 20px 20px;
+}
+
+#canvas {
+    width: 2000px;
+    height: 1900px;
+    border: 2px solid darkseagreen;
 }

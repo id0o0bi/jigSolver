@@ -30,7 +30,7 @@ EDGE_WIDTH_MIN_RATIO = 0.4
 # scale pixel offsets depending on how big the BMPs are
 # 1.0 is tuned for around 100 pixels wide
 # SCALAR = 9.45
-SCALAR = 7.45
+SCALAR = 15
 
 
 def load_and_vectorize(args):
@@ -176,9 +176,9 @@ class Vector(object):
             self.render()
 
         # find the incenter of the piece in the space of the un-scaled original photo
-        photo_space_incenter = (photo_space_position[0] + (self.incenter[0] / scale_factor),
-                                photo_space_position[1] + (self.incenter[1] / scale_factor))
-        metadata["photo_space_incenter"] = photo_space_incenter
+        # photo_space_incenter = (photo_space_position[0] + (self.incenter[0] / scale_factor),
+        #                         photo_space_position[1] + (self.incenter[1] / scale_factor))
+        # metadata["photo_space_incenter"] = photo_space_incenter
 
         photo_space_centroid = (photo_space_position[0] + (self.centroid[0] / scale_factor),
                                 photo_space_position[1] + (self.centroid[1] / scale_factor))
@@ -226,8 +226,8 @@ class Vector(object):
                 svg += f'<polyline points="{pts_a}" style="fill:none; stroke:#ffaa00; stroke-width:0.4" />'
                 svg += f'<polyline points="{pts_b}" style="fill:none; stroke:#aaff00; stroke-width:0.4" />'
         svg += f'<circle cx="{self.centroid[0] / d}" cy="{self.centroid[1] / d}" r="{1.0}" style="fill:#444444; stroke-width:0" />'
-        svg += f'<circle cx="{self.incenter[0] / d}" cy="{self.incenter[1] / d}" r="{50.0 / d}" style="fill:#ff770022; stroke-width:0" />'
-        svg += f'<circle cx="{self.incenter[0] / d}" cy="{self.incenter[1] / d}" r="{1.0}" style="fill:#ff7700; stroke-width:0" />'
+        # svg += f'<circle cx="{self.incenter[0] / d}" cy="{self.incenter[1] / d}" r="{50.0 / d}" style="fill:#ff770022; stroke-width:0" />'
+        # svg += f'<circle cx="{self.incenter[0] / d}" cy="{self.incenter[1] / d}" r="{1.0}" style="fill:#ff7700; stroke-width:0" />'
         svg += '</svg>'
         filename = self.filename.parts[-1].split('.')[0]
         svg_path = pathlib.Path(output_path).joinpath(f"{self.id}_{filename}.svg")
@@ -244,7 +244,7 @@ class Vector(object):
             metadata['vertices'] = vertices
             metadata['piece_center'] = list(side.piece_center)
             metadata['is_edge'] = side.is_edge
-            metadata['incenter'] = list(self.incenter)
+            # metadata['incenter'] = list(self.incenter)
             with open(side_path, 'w') as f:
                 f.write(json.dumps(metadata))
 
@@ -327,7 +327,7 @@ class Vector(object):
                 raise Exception(f"Piece @ {self.id} will get us stuck in a loop because the border goes up to the edge of the bitmap. Take a new picture with the piece centered better or make sure the background is brighter white.")
 
         self.centroid = util.centroid(self.vertices)
-        self.incenter = util.incenter(self.vertices) # TODO: remove this, not useful
+        # self.incenter = util.incenter(self.vertices) # TODO: remove this, not useful
 
     def merge_close_points(self, vs, threshold):
         i = -len(vs)
@@ -363,7 +363,7 @@ class Vector(object):
         # to find a corner, we're going to compute the angle between 3 consecutive points
         # if it is roughly 90º and pointed toward the center, it's a corner
         for i in range(len(self.vertices)):
-            debug = self.vertices[i][1] in (2260, 1250)
+            debug = self.vertices[i][1] in (12260, 11250)
             candidate = None
             try:
                 candidate = Candidate.from_vertex(self.vertices, i, self.centroid, debug=debug)
@@ -377,6 +377,7 @@ class Vector(object):
                 continue
             candidates.append(candidate)
 
+        # print(len(candidates))    
         return candidates
 
     def merge_nearby_candidates(self, candidates):
@@ -677,6 +678,8 @@ class Vector(object):
             side_j.vertices.append(enhanced_corner)
 
     def render(self) -> None:
+        print('render FAILED: ' + str(self.id))
+        return
         SIDE_COLORS = [util.RED, util.GREEN, util.PURPLE, util.CYAN]
         CORNER_COLOR = util.YELLOW
         lines = []

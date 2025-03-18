@@ -16,6 +16,10 @@ ConDir = '3con'
 OutDir = '4out'
 RefDir = '5ref'
 
+pathRaw = pathlib.Path('src/data').joinpath(RawDir)
+pathRef = pathlib.Path('src/data').joinpath(RefDir)
+pathSeg = pathlib.Path('src/data').joinpath(SegDir)
+
 '''
 Extract Puzzle Pieces from raw puzzle photos with multiple pieces
 0 - find contours
@@ -82,6 +86,47 @@ def extract_pieces(path):
         # imgs.append([dstImg, contours])
     return imgs
 
+def seg_new(path):
+    kernel = np.ones((5, 5), np.uint8)
+    for seq in os.listdir(path):
+        print(seq)
+        imgpath = os.path.join(path, seq)
+        imglist = [f for f in os.listdir(imgpath) if re.match(r'.*\.jpe?g', f)]
+        for imgFile in imglist:
+            srcImg = os.path.join(imgpath, imgFile)
+            img = cv2.imread(str(srcImg), cv2.IMREAD_GRAYSCALE)
+            img = img[600:2400, 600:2400]
+            img = cv2.flip(img, 1)
+            # bilateralFilter can reduce unwanted noise very well while keeping edges fairly sharp.
+            # However, it is very slow compared to most filters.
+            img = cv2.bilateralFilter(img, 5, 75, 75)
+            # get a bi-level (binary) image out of a grayscale image
+            _, img = cv2.threshold(img, 0, 120, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            # perform advanced morphological transformations using an erosion and dilation
+            img = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
+            img = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
+            canny = cv2.Canny(img, 50, 200)
+            contours, hier = cv2.findContours(canny, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+            
+            idx = 0
+            saveImg = '{}-{}.bmp'.format(seq, imgFile[0:2])
+            for cnt in contours:
+                x, y, w, h = cv2.boundingRect(cnt)
+                if (w < 100 or h < 100):
+                    continue;
+                cutImg = np.zeros([h+10, w+10])
+                cv2.drawContours(cutImg, [cnt - [x-5, y-5]], -1, (255, 0, 0), 1, maxLevel = 1)
+                cv2.imwrite(pathSeg.joinpath(saveImg), cutImg)
+                idx += 1
+                # cnts.append(cnt)
+            if (idx != 1): 
+                print('In {}/{}. Found pieces: {}'.format(seq, imgFile, idx))
+            
+            # contImg = np.zeros([1800, 1800])
+            # cv2.drawContours(contImg, cnts, -1, (255, 0, 0), 1, maxLevel = 1)
+            # cv2.imwrite(pathSeg.joinpath(saveImg), contImg)
+    return
+
 def _vectorize(args):
     vecDir, segDir, piece = args
     [x, y] = piece.split('.')[0].split('-')
@@ -121,22 +166,16 @@ def solve(path, step):
     outDir = pathlib.Path(path).joinpath(OutDir)
 
     if step == 1:
-        # for file in photos
-        imgs = extract_pieces(path)
+        # imgs = extract_pieces(path)
+        seg_new('/home/derren/Documents/Misc/monet/OpenCamera/')
         
     if step == 2:
-        segs = [f for f in os.listdir(segDir) if re.match(r'.*\.bmp', f)]
-        args = []
-        
-        for piece in os.listdir(segDir):
-            args.append([vecDir, segDir, piece])
-
+        args = [[vecDir, segDir, p] for p in os.listdir(segDir) if p.endswith('24.bmp') and p.startswith('16')]
         with multiprocessing.Pool(processes=os.cpu_count()) as pool:
             pool.map(_vectorize, args)
 
     if step == 3:
         conn = _find_connectivity(vecDir, conDir)
-        # _build_board(connectivity=conn, input_path=conDir, output_path=outDir)
 
     if step == 4:
         _build_board(connectivity=None, input_path=conDir, output_path=outDir)
